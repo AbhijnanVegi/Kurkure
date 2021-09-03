@@ -26,85 +26,56 @@ Organizers, Dog trainers(participants), spectators and Sponsors.
 
 1. Owner
    - Name : Name of the owner
-     - Char(50)
-     - Not NULL
+     - Char(50), Not NULL
    - Email : Email address of the owner
-     - Char(100)
-     - Not NULL
-     - Unique
+     - Char(100), Not NULL, Unique
    - Contact : Contact number of the owner
-     - Integer with 8-11 digits
-     - Not NULL
+     - Integer with 8-11 digit, Not NULL
    - Nationality : Nationality of the owner
-     - Char(3)
-     - Has to be from fixed choices of country codes
-     - Not NULL
+     - Char(3), Has to be from fixed choices of country codes, Not NULL
 3. Championship
    - Name : Name of the championship
-     - Char(50)
-     - Not NULL
-     - Unique
+     - Char(50), Not NULL, Unique
    - Entry Opening Date : Date after which the participants can register
-     - DateTime
-     - Not NULL
+     - DateTime, Not NULL
    - Entry Closing Date : Date after which participants can no longer register themselves
-     - DateTime
-     - Not NULL
+     - DateTime, Not NULL
    - Competition start date : Start Date of Competition
-     - DateTime
-     - Not NULL
+     - DateTime, Not NULL
    - Competition End Date : End date of competition
-     - DateTime
-     - Not NULL
+     - DateTime, Not NULL
 3. Judge
    - Judge_id : Unique Id of the judge
-     - Integer
-     - Unique
-     - Not NULL
+     - Integer, Unique, Not NULL
    - Name : Name of the Judge
-     - Char(50)
-     - Not NULL
+     - Char(50), Not NULL
    - Breed : The breed judged by the judge
-     - Char(50)
-     - Not NULL
+     - Char(50), Not NULL
 4. Dogs
    - Name : Name of the dog
-     - Char(50)
-     - Not NULL
+     - Char(50), Not NULL
    - Breed : Breed of the dog
-     - Char(50)
-     - Not NULL
+     - Char(50), Not NULL
    - Weight : Weight of the dog
-     - 50 > Integer > 5
-     - Not NULL
+     - 50 > Integer > 5, Not NULL
    - Age : Age of the dog
-     - 15 > Integer > 2
-     - Not NULL
+     - 15 > Integer > 2, Not NULL
 5. Events
    - Type : Type of Event
-     - Char(50)
-     - Not NULL
+     - Char(50), Not NULL
    - Allowed Dog Size : The dog size permitted determined by the rules
-     - Char(10)
-     - Choices = (SMALL, MEDIUM, LARGE, ANY)
-     - Not NULL
+     - Char(10), Choices = (SMALL, MEDIUM, LARGE, ANY), Not NULL
    - Prizes : Prize Money allocated to the event
-     - Integer
-     - Not NULL
+     - Integer, Not NULL
 6. Accommodation
    - Accommodation_id : Unique Id of the kennel
-     - Integer > 0
-     - Not NULL
+     - Integer > 0, Not NULL
    - Size : Size of the kennel
-     - Char(10)
-     - Choices = (SMALL,MEDIUM,LARGE)
-     - Not NULL
+     - Char(10), Choices = (SMALL,MEDIUM,LARGE), Not NULL
    - Rent : Rent price of the kennel
-     - Integer
-     - Not NULL
+     - Integer, Not NULL
    - Availability : Boolean determining the availability of kennel
-     - Boolean
-     - Not NULL
+     - Boolean, Not NULL
 
 ### Weak Entities
 
@@ -126,11 +97,9 @@ Organizers, Dog trainers(participants), spectators and Sponsors.
 3. Accommodates
    - Attributes :
      - Lease Date
-       - DateTime
-       - Not NULL
+       - DateTime, Not NULL
      - Lease End Date
-       - DateTime
-       - Not NULL
+       - DateTime, Not NULL
    - Relationship between `Dogs`, `Owner` and `Accommodation`
    - Each accommodation houses dogs from various owner. This relationship stores dates at which the accommodation’s leased by the owner for a particular dog
    - Degree = (1:`Dogs`, 1:`Owner`, 1:`Accommodation`)
