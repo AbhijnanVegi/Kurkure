@@ -140,23 +140,21 @@ Organizers, Dog trainers(participants), spectators and Sponsors.
 
 ### Modifications
 
-- Insert : dogs
+- Insert : Events, Dog participants, Owners of the participant dogs, Judges, Accomodations
 
-- Delete : event
-
-- Update : Championship
+- Delete : Events, Participants, Accomodations, Judges 
+- Update : Championship, Accomodations 
 
 ### Retrieval
 
-- Selection : retrieve all events in a championship
+- Selection : Winner of an event, List of all dogs participating
 
-- Projection query : All dogs of a particular breed
+- Projection query : All dogs of a particular breed, List of all participants from a particular country
 
-- Aggregate: Number of events won by a dog
+- Aggregate: Number of events won by a dog, Maximum events won by a dog, Maximum participants from any country.
 
-- Search : search for an event
+- Search : Search for an event, 
 
-- Analysis : Total events won by a dog of particular breed
+- Analysis : Total events won by a dog of particular breed, Countries will the most winners in events of 
 
-
-
+  particular breed size. 
