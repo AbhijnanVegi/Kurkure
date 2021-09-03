@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The mini world describes the various dog competitions.
+The mini world describes various dog competitions as part of Crufts, the greatest dog event organized by the Kennel Club. There are several events as parts of championships for all kinds of dogs in Crufts. 
 
 ## Purpose
 
@@ -10,9 +10,7 @@ The purpose of this database is to store data about the various championships an
 
 ## Users
 
-- Organizers, who keep track of the participants and organize various events
-- The participants who register themselves
-- The spectators who interested in watching, results
+Organizers, Dog trainers(participants), spectators and Sponsors.
 
 ## Applications
 
@@ -116,8 +114,8 @@ The purpose of this database is to store data about the various championships an
 
 1. Owns
    - The relationship between `Owner` and `Dogs`
-   - Degree = (1:`Owner`, M:`Dogs`)
-   - Cardinality constraint = 0
+   - Degree = (1:`Owner`, M:`Dogs`) [2]
+   - Cardinality constraint = 0 [cardinality ratio? ]
 2. Results
    - Attributes : 
      - Score
@@ -140,21 +138,25 @@ The purpose of this database is to store data about the various championships an
 
 ## Functional Requirements
 
-Insert : dogs
+### Modifications
 
-Delete : event
+- Insert : dogs
 
-Update : Championship
+- Delete : event
 
-Selection : retrieve all events in a championship
+- Update : Championship
 
-Projection query : All dogs of a particular breed
+### Retrieval
 
-Aggr funct : Number of events won by a dog
+- Selection : retrieve all events in a championship
 
-Search : search for an event
+- Projection query : All dogs of a particular breed
 
-Analysis : Total events won by a dog of particular breed
+- Aggregate: Number of events won by a dog
+
+- Search : search for an event
+
+- Analysis : Total events won by a dog of particular breed
 
 
 
