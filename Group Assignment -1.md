@@ -33,6 +33,7 @@ Organizers, Dog trainers(participants), spectators and Sponsors.
      - Integer with 8-11 digit, Not NULL
    - Nationality : Nationality of the owner
      - Char(3), Has to be from fixed choices of country codes, Not NULL
+   
 3. Championship
    - Name : Name of the championship
      - Char(50), Not NULL, Unique
@@ -44,6 +45,7 @@ Organizers, Dog trainers(participants), spectators and Sponsors.
      - DateTime, Not NULL
    - Competition End Date : End date of competition
      - DateTime, Not NULL
+   
 3. Judge
    - Judge_id : Unique Id of the judge
      - Integer, Unique, Not NULL
@@ -51,6 +53,7 @@ Organizers, Dog trainers(participants), spectators and Sponsors.
      - Char(50), Not NULL
    - Breed : The breed judged by the judge
      - Char(50), Not NULL
+   
 4. Dogs
    - Name : Name of the dog
      - Char(50), Not NULL
@@ -60,6 +63,7 @@ Organizers, Dog trainers(participants), spectators and Sponsors.
      - 50 > Integer > 5, Not NULL
    - Age : Age of the dog
      - 15 > Integer > 2, Not NULL
+   
 5. Events
    - Type : Type of Event
      - Char(50), Not NULL
@@ -67,15 +71,14 @@ Organizers, Dog trainers(participants), spectators and Sponsors.
      - Char(10), Choices = (SMALL, MEDIUM, LARGE, ANY), Not NULL
    - Prizes : Prize Money allocated to the event
      - Integer, Not NULL
-6. Accommodation
-   - Accommodation_id : Unique Id of the kennel
-     - Integer > 0, Not NULL
-   - Size : Size of the kennel
-     - Char(10), Choices = (SMALL,MEDIUM,LARGE), Not NULL
-   - Rent : Rent price of the kennel
+   
+6. Result
+
+   - Result_id : Unique ID of the result
+     - Integer > 0, Not NULL, Unique
+
+   - Score : Score given to the dog
      - Integer, Not NULL
-   - Availability : Boolean determining the availability of kennel
-     - Boolean, Not NULL
 
 ### Weak Entities
 
@@ -84,35 +87,30 @@ Organizers, Dog trainers(participants), spectators and Sponsors.
 ### Relationships
 
 1. Owns
-   - The relationship between `Owner` and `Dogs`
-   - Degree = (1:`Owner`, M:`Dogs`) [2]
-   - Cardinality constraint = 0 [cardinality ratio? ]
-2. Results
-   - Attributes : 
-     - Score
-       - Integer
-   - Relationship between `Dogs` and `Events` storing the score of a dog in an event
-   - Degree = (1:`Dogs`, 1: `Events`)
-   - Cardinality constraint = 1
-3. Accommodates
-   - Attributes :
-     - Lease Date
-       - DateTime, Not NULL
-     - Lease End Date
-       - DateTime, Not NULL
-   - Relationship between `Dogs`, `Owner` and `Accommodation`
-   - Each accommodation houses dogs from various owner. This relationship stores dates at which the accommodation’s leased by the owner for a particular dog
-   - Degree = (1:`Dogs`, 1:`Owner`, 1:`Accommodation`)
+   - The relationship between `Owner` and `Dogs`, i.e, `Owner` owns `Dogs`
+   - Degree = (1:`Owner`, M:`Dogs`)
+   - Cardinality constraint = N
+2. Judged by
+   - Relationship between `Events` and `Judges` such that an `Event` is judged by a `Judge`
+   - Degree = (1:`Events`, 1:`Judges`)
    - Cardinality Constraint = 1
+3. Result
+   - Relationship between `Dogs` and `Events` and `Results` such that its links the `Result` of a `Dog` in an `Event`
+   - Degree = (1:`Dogs`, 1: `Events`, 1: `Results`)
+   - Cardinality constraint = 1
+
+### n > 2 Relationship
+
+The relationship `Result` is an example of ternary relationship
 
 ## Functional Requirements
 
 ### Modifications
 
-- Insert : Events, Dog participants, Owners of the participant dogs, Judges, Accomodations
+- Insert : Events, Dog participants, Owners of the participant dogs, Judges
 
-- Delete : Events, Participants, Accomodations, Judges 
-- Update : Championship, Accomodations 
+- Delete : Events, Participants, Judges 
+- Update : Championship
 
 ### Retrieval
 
