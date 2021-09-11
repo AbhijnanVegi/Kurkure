@@ -132,6 +132,35 @@ This database is used to store and manage various transactions of online store.
 ## Functional Requirements
 
 ### Modifications
-
+1. Insert - 
+    - Insert User.
+    - Inser Product to be sold.
+    - User can insert address.
+    - User can insert a payment method(entity type: payment details)
+    - User can add a review.
+2. Delete
+    - A product can be deleted(if discountinued or out of stock).
+    - User can delete a certain address.
+    - User can delete a review.
+3. Update
+    - A product's details can be updated(price, total quantity).
+    - User can change his/her review.
+    - User can update address details.
+    - User can update payment details.
 ### Retrieval
+1. Selection
+    - Retrieve details of all the products available.
+    - Retrieve details of all the users registered.
+2. Projection
+    - List of all oders above the value of certain amount.
+    - List of all reviews for a particular product rated above a certain rating.
+3. Aggregate
+    - Product with maximum sales.
+    - Product with highest reviews in a category.
+4. Search
+    - User can search for products that contain certain word. 
+    - User can search within their orders.
 
+5. Analysis
+    - Products in certain category with less than the average rating for that category.
+    - Amount of orders placed for a particular product in a certain time period by suscribed users.
