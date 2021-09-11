@@ -134,12 +134,12 @@ This database is used to store and manage various transactions of online store.
 ### Modifications
 1. Insert - 
     - Insert User.
-    - Inser Product to be sold.
+    - Insert Product to be sold.
     - User can insert address.
     - User can insert a payment method(entity type: payment details)
     - User can add a review.
 2. Delete
-    - A product can be deleted(if discountinued or out of stock).
+    - A product can be deleted(if discontinued or out of stock).
     - User can delete a certain address.
     - User can delete a review.
 3. Update
@@ -152,7 +152,7 @@ This database is used to store and manage various transactions of online store.
     - Retrieve details of all the products available.
     - Retrieve details of all the users registered.
 2. Projection
-    - List of all oders above the value of certain amount.
+    - List of all orders above the value of certain amount.
     - List of all reviews for a particular product rated above a certain rating.
 3. Aggregate
     - Product with maximum sales.
