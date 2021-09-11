@@ -98,7 +98,36 @@ This database is used to store and manage various transactions of online store.
 
 ### Relationships
 
-### n > 2 Relationship
+1. Has addresses
+   - `User` has addresses `Address`
+   - Degree : 2
+   - Cardinality ratio : 1:N
+   - Cardinality constraint: Both `User` and `Address` have total participation
+2. Can pay with
+   - `User` can pay with `Payment Method`
+   - Degree : 2
+   - Cardinality ratio : 1:N
+   - Cardinality constraint: Both `User` and `Payment Method` have total participation
+3. Contains
+   - `Order` contains `Product`
+   - Degree : 2
+   - Attributes : Quantity (Integer, Not NULL)
+   - Cardinality ratio : 1:N
+   - Cardinality constraint: `Order` has total participation whereas `Product` has partial participation
+4. Reviewed
+   - `User` rates `Product` with `Review`
+   - Degree : 3
+   - Cardinality ratio : 1:1:1
+   - Cardinality constraint : `Review` has total participation whereas `User` and `Product` have partial participation. There is at most 1 `Review` for the pair (`User`,`Product`)
+5. Placed
+   - `User` placed an `Order` to an `Address` with `Payment Method`
+   - Degree : 4
+   - Cardinality ratio : 1:M:N:P
+   - Cardinality Constraint : `Order` has total participation whereas `User`,`Address` and `Payment` have partial participation. There can be multiple `Order` per `User` having exactly one of `Address` and `Payment`
+
+### n > 3 Relationship
+
+`Placed` is a quaternary relationship. 
 
 ## Functional Requirements
 
