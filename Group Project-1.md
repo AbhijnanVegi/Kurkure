@@ -2,7 +2,7 @@
 
 ## Introduction
 
-
+The mini world describes an online store where people can review and purchase Items. Users can purchase these items via multiple methods like online wallets or online banking. The store saves previous transaction details such as address and payment method to save time for the user, Users can also track their orders after making a purchase. 
 
 ## Purpose
 
