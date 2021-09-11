@@ -10,17 +10,17 @@ This database is used to store and manage various transactions of online store.
 
 ## Users
 
-- User to place an order 
+- Users who make purchases/review products 
 - Store management to manage various products and user’s orders
 
 ## Applications
 
 - User : To store basic user details
 - Address : To store the addresses of a user
-- Cards Details : Store the card details of cards used by the user
-- Product : Store details of the product 
-- Reviews : Store reviews of product by the customer
-- Order : Store details regarding order 
+- Cards Details : Stores the card details of cards used by the user
+- Product : Stores details of the product 
+- Reviews : Stores reviews of product by the customer
+- Order : Stores details regarding order 
 
 ## Database Requirements
 
