@@ -2,7 +2,7 @@
 
 ## ER Diagram
 
-![Group Assignment-2.drawio](/home/vegi/Downloads/Group Assignment-2.drawio.png)
+![Group Assignment-2 drawio](https://user-images.githubusercontent.com/68379071/134186127-d9d8b32a-8c05-4b90-9ad6-7cabf4093aac.png)
 
 ## Analysis of :om:’s Assignment-1
 
