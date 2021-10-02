@@ -40,5 +40,15 @@ To satisfy BCNF for every non trivial functional dependency in the relationship 
 
 Q2.3 - 
 
+Minimum cover requires:
 
+1. Every functional dependency to have a single attribute in the RHS
+
+2. Removal of all the redundant functional dependencies, which are of the form $X \implies Y$ with the following condition: 
+
+      	The set of dependencies F = the set of dependencies $(F- (X \implies Y))$
+
+A set of cyclic dependencies can satisfy all the conditions. Therefore, cyclic dependencies will be a minimal cover for the above relation. 
+
+​	One possible minimal cover would look like $A_1 \implies A_2,\space A_2 \implies A_3 \dots A_{n-1} \implies A_n,\space  A_n \implies A_1$.  Since we have n attributes, we can generate $(n-1)!$ such cyclic permutations. 
 
