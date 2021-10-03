@@ -1,4 +1,8 @@
-Q2.1 - 
+
+
+## Question 2
+
+### 2.1 
 
 Given
 $$
@@ -13,7 +17,7 @@ Using this we can conclude that $A_i \implies A_j \forall 1\le i,j\le n$,  thus 
 
  
 
-Q2.2 -
+### 2.2
 
 1^st^ normal form :
 
@@ -38,7 +42,7 @@ To satisfy BCNF for every non trivial functional dependency in the relationship 
 
 
 
-Q2.3 - 
+### 2.3
 
 Minimum cover requires:
 
@@ -46,7 +50,7 @@ Minimum cover requires:
 
 2. Removal of all the redundant functional dependencies, which are of the form $X \implies Y$ with the following condition: 
 
-      	The set of dependencies F = the set of dependencies $(F- (X \implies Y))$
+      The set of dependencies F = the set of dependencies $(F- (X \implies Y))$
 
 A set of cyclic dependencies can satisfy all the conditions. Therefore, cyclic dependencies will be a minimal cover for the above relation. 
 
