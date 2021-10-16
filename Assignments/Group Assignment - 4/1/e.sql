@@ -1,3 +1,2 @@
-INSERT INTO ROTATE (X,Y,Z)
-SELECT X*COS(PI()/2)-Y*SIN(PI()/2),X*SIN(PI()/2)+Y*COS(PI()/2),Z
-FROM POINT;
+CREATE TABLE ROTATE(new_coord TEXT, X_ float, Y_ float, Z_ float);
+INSERT INTO ROTATE VALUES('x',COS(alpha),-SIN(alpha),0),('y',SIN(alpha),COS(alpha),0),('z',0,0,1);
