@@ -82,3 +82,32 @@ def insert_product():
         print("Operation failed")
         print(">>>>>>>", e)
         con.rollback()
+
+def insert_address():
+    try:
+        details = get_input(request=[
+            "User Email Address",
+            "Address Line 1",
+            "Address Line 2",
+            "City",
+            "State",
+            "Zipcode"
+        ])
+        query ="""
+        INSERT INTO ADDRESS (UserEmailAddress, Line1, Line2, City, State, Zipcode)
+        VALUES ("%s","%s","%s","%s","%s",%s)
+        """ % (details["User Email Address"], details["Address Line 1"], details["Address Line 2"], details["City"], details["State"], int(details["Zipcode"]))
+
+        # Domain error handling
+        if (int(details["Zipcode"]) < 0):
+            raise Exception("Zipcode cannot be negative")
+        elif (len(details["Zipcode"]) != 6):
+            raise Exception("Zipcode must be 6 digits")
+        
+        cur.execute(query)
+        con.commit()
+        print("Address inserted successfully\n\n")
+    except Exception as e:
+        print("Operation failed")
+        print(">>>>>>>", e)
+        con.rollback()
