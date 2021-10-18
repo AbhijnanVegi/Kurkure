@@ -16,6 +16,35 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `ADDRESS`
+--
+
+DROP TABLE IF EXISTS `ADDRESS`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ADDRESS` (
+  `UserEmailAddress` varchar(128) NOT NULL,
+  `Line1` varchar(128) NOT NULL,
+  `Line2` varchar(128) NOT NULL,
+  `City` varchar(64) NOT NULL,
+  `State` varchar(64) NOT NULL,
+  `Zipcode` varchar(6) NOT NULL,
+  PRIMARY KEY (`UserEmailAddress`,`Line1`,`Line2`),
+  CONSTRAINT `ADDRESS_ibfk_1` FOREIGN KEY (`UserEmailAddress`) REFERENCES `USER` (`EmailAddress`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ADDRESS`
+--
+
+LOCK TABLES `ADDRESS` WRITE;
+/*!40000 ALTER TABLE `ADDRESS` DISABLE KEYS */;
+INSERT INTO `ADDRESS` VALUES ('Kurkure@iiit.ac.in','IIITH','Gachibowli','Hyderabad','Telangana','500075');
+/*!40000 ALTER TABLE `ADDRESS` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `CATEGORY`
 --
 
@@ -129,4 +158,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-10-18 19:35:56
+-- Dump completed on 2021-10-18 20:14:11
