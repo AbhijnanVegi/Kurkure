@@ -1,11 +1,12 @@
 import subprocess as sp
 from utils.cursor import con
-from utils.insert import insert_user
+from utils.insert import insert_user,insert_product
 
 OPTIONS = """
 Choose the option corresponding to the action you want to perform:
 0. Exit [EXIT]
 1. Add a new user [INSERT]
+2. Add a new product [INSERT]
 Option: """
 
 
@@ -13,6 +14,7 @@ def dispatch(opt):
     functions = {
         0: exit,
         1: insert_user,
+        2: insert_product,
     }
     functions[opt]()
 
