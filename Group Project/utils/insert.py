@@ -1,4 +1,6 @@
 import re
+import random
+import string
 
 from utils.cursor import con, cur
 from utils.utils import get_input 
@@ -107,6 +109,64 @@ def insert_address():
         cur.execute(query)
         con.commit()
         print("Address inserted successfully\n\n")
+    except Exception as e:
+        print("Operation failed")
+        print(">>>>>>>", e)
+        con.rollback()
+
+def insert_payment():
+    try:
+        details = get_input(request=[
+            "User Email Address",
+            "Name",
+            "Set as default [y/N]"
+        ])
+        query ="""
+        INSERT INTO PAYMENT_METHOD (UserEmailAddress, Name, IsDefault)
+        VALUES ("%s","%s",%s)
+        """ % (details["User Email Address"], details["Name"], details["Set as default [y/N]"] == "y")
+    
+        # Domain error handling
+        if (details["Set as default [y/N]"] not in ["y","n",""]):
+            raise Exception("Input to 'Set as default' must be y/n")
+        
+        cur.execute(query)
+        
+        ptype = input("Payment Methods : 1.Wallet 2.Card\nEnter payment method type: ")
+        if (ptype == "1"):
+            wallet_details = get_input(request=[
+                "Provider"
+            ])
+            characters = string.ascii_letters + string.digits 
+            auth_token = "".join(random.choice(characters) for i in range(128))
+            balance = random.randint(0, 100000)
+            query = """
+            INSERT INTO WALLET (UserEmailAddress, Name, Provider, AuthToken, Balance)
+            VALUES ("%s","%s","%s","%s",%s)
+            """ % (details["User Email Address"], details["Name"], wallet_details["Provider"],auth_token, balance)
+        elif ptype == "2":
+            card_details = get_input(request=[
+                "Card Number",
+                "Expiry Date",
+                "Name of card holder",
+                "Billing address"
+            ])
+            query = """
+            INSERT INTO CARD(UserEmailAddress, Name, CardNumber, ExpiryDate, NameOfCardHolder, BillingAddress)
+            VALUES ("%s","%s","%s","%s","%s","%s")
+            """ % (details["User Email Address"], details["Name"], card_details["Card Number"], card_details["Expiry Date"], card_details["Name of card holder"], card_details["Billing address"])
+
+            # Domain error handling
+            if (len(card_details["Card Number"]) != 16):
+                raise Exception("Card Number must be 16 digits")
+            elif (not re.fullmatch(r"(0[1-9]|1[0-2])\/?([0-9]{2})", card_details["Expiry Date"])):
+                raise Exception("Invalid Expiry Date")
+        else:
+            raise Exception("Invalid payment method type")
+
+        cur.execute(query)
+        con.commit()
+        print("Payment inserted successfully\n\n")
     except Exception as e:
         print("Operation failed")
         print(">>>>>>>", e)

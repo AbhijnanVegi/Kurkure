@@ -45,6 +45,35 @@ INSERT INTO `ADDRESS` VALUES ('Kurkure@iiit.ac.in','IIITH','Gachibowli','Hyderab
 UNLOCK TABLES;
 
 --
+-- Table structure for table `CARD`
+--
+
+DROP TABLE IF EXISTS `CARD`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `CARD` (
+  `UserEmailAddress` varchar(128) NOT NULL,
+  `Name` varchar(64) NOT NULL,
+  `CardNumber` varchar(20) NOT NULL,
+  `ExpiryDate` varchar(5) NOT NULL,
+  `NameOfCardHolder` varchar(64) NOT NULL,
+  `BillingAddress` varchar(512) NOT NULL,
+  PRIMARY KEY (`UserEmailAddress`,`Name`),
+  CONSTRAINT `CARD_ibfk_1` FOREIGN KEY (`UserEmailAddress`, `Name`) REFERENCES `PAYMENT_METHOD` (`UserEmailAddress`, `Name`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `CARD`
+--
+
+LOCK TABLES `CARD` WRITE;
+/*!40000 ALTER TABLE `CARD` DISABLE KEYS */;
+INSERT INTO `CARD` VALUES ('Kurkure@iiit.ac.in','SBI Card','3004200280081010','12/22','Lays','IIITH Gachibowli');
+/*!40000 ALTER TABLE `CARD` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `CATEGORY`
 --
 
@@ -92,6 +121,32 @@ LOCK TABLES `DELIVERY_AVAILABILITY` WRITE;
 /*!40000 ALTER TABLE `DELIVERY_AVAILABILITY` DISABLE KEYS */;
 INSERT INTO `DELIVERY_AVAILABILITY` VALUES (1,'Hyderabad'),(1,'Delhi'),(2,'Bangalore'),(2,'Chennai');
 /*!40000 ALTER TABLE `DELIVERY_AVAILABILITY` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `PAYMENT_METHOD`
+--
+
+DROP TABLE IF EXISTS `PAYMENT_METHOD`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `PAYMENT_METHOD` (
+  `UserEmailAddress` varchar(128) NOT NULL,
+  `Name` varchar(64) NOT NULL,
+  `IsDefault` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`UserEmailAddress`,`Name`),
+  CONSTRAINT `PAYMENT_METHOD_ibfk_1` FOREIGN KEY (`UserEmailAddress`) REFERENCES `USER` (`EmailAddress`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `PAYMENT_METHOD`
+--
+
+LOCK TABLES `PAYMENT_METHOD` WRITE;
+/*!40000 ALTER TABLE `PAYMENT_METHOD` DISABLE KEYS */;
+INSERT INTO `PAYMENT_METHOD` VALUES ('JohnDoe@jd.com','JDPay',0),('Kurkure@iiit.ac.in','SBI Card',1);
+/*!40000 ALTER TABLE `PAYMENT_METHOD` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -148,6 +203,34 @@ LOCK TABLES `USER` WRITE;
 INSERT INTO `USER` VALUES ('JohnDoe@jd.com','John','B','Doe',0,'1234567890'),('Kurkure@iiit.ac.in','Kurkure','Lays','Bingo',1,'1230985674');
 /*!40000 ALTER TABLE `USER` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `WALLET`
+--
+
+DROP TABLE IF EXISTS `WALLET`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `WALLET` (
+  `UserEmailAddress` varchar(128) NOT NULL,
+  `Name` varchar(64) NOT NULL,
+  `Provider` varchar(64) NOT NULL,
+  `AuthToken` varchar(128) NOT NULL,
+  `Balance` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`UserEmailAddress`,`Name`),
+  CONSTRAINT `WALLET_ibfk_1` FOREIGN KEY (`UserEmailAddress`, `Name`) REFERENCES `PAYMENT_METHOD` (`UserEmailAddress`, `Name`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `WALLET`
+--
+
+LOCK TABLES `WALLET` WRITE;
+/*!40000 ALTER TABLE `WALLET` DISABLE KEYS */;
+INSERT INTO `WALLET` VALUES ('JohnDoe@jd.com','JDPay','Paytm','NkAxpzaQZaHjEuEA3InxsqqzoQBO20gWsQcC5rer6FR3Vl576mzHdm1YbzCMiX1HTNS6hyso0PFlLLcD4Hz2h93zddnB9LupyHh1dESs7wczNTEB6QvJo7RMc5cFGWY3',20388);
+/*!40000 ALTER TABLE `WALLET` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -158,4 +241,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-10-18 20:14:11
+-- Dump completed on 2021-10-19  9:07:20

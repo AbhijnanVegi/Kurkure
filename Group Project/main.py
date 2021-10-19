@@ -1,6 +1,6 @@
 import subprocess as sp
 from utils.cursor import con
-from utils.insert import insert_user,insert_product,insert_address
+from utils.insert import insert_user,insert_product,insert_address,insert_payment
 
 OPTIONS = """
 Choose the option corresponding to the action you want to perform:
@@ -8,6 +8,7 @@ Choose the option corresponding to the action you want to perform:
 1. Add a new user [INSERT]
 2. Add a new product [INSERT]
 3. Add a new address [INSERT]
+4. Add a new payment method [INSERT]
 Option: """
 
 
@@ -17,6 +18,7 @@ def dispatch(opt):
         1: insert_user,
         2: insert_product,
         3: insert_address,
+        4: insert_payment
     }
     try:
         functions[opt]()
