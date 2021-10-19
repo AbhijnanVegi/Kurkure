@@ -99,6 +99,32 @@ INSERT INTO `CATEGORY` VALUES (1,'Snacks'),(2,'Snacks'),(2,'Breakfast');
 UNLOCK TABLES;
 
 --
+-- Table structure for table `CONTAINS`
+--
+
+DROP TABLE IF EXISTS `CONTAINS`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `CONTAINS` (
+  `OrderId` int(11) NOT NULL,
+  `ProductId` int(11) NOT NULL,
+  KEY `FK_Order` (`OrderId`),
+  KEY `FK_Product` (`ProductId`),
+  CONSTRAINT `FK_Order` FOREIGN KEY (`OrderId`) REFERENCES `ORDERS` (`OrderId`),
+  CONSTRAINT `FK_Product` FOREIGN KEY (`ProductId`) REFERENCES `PRODUCT` (`ProductId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `CONTAINS`
+--
+
+LOCK TABLES `CONTAINS` WRITE;
+/*!40000 ALTER TABLE `CONTAINS` DISABLE KEYS */;
+/*!40000 ALTER TABLE `CONTAINS` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `DELIVERY_AVAILABILITY`
 --
 
@@ -121,6 +147,39 @@ LOCK TABLES `DELIVERY_AVAILABILITY` WRITE;
 /*!40000 ALTER TABLE `DELIVERY_AVAILABILITY` DISABLE KEYS */;
 INSERT INTO `DELIVERY_AVAILABILITY` VALUES (1,'Hyderabad'),(1,'Delhi'),(2,'Bangalore'),(2,'Chennai');
 /*!40000 ALTER TABLE `DELIVERY_AVAILABILITY` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `ORDERS`
+--
+
+DROP TABLE IF EXISTS `ORDERS`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ORDERS` (
+  `OrderId` int(11) NOT NULL AUTO_INCREMENT,
+  `UserEmailAddress` varchar(128) NOT NULL,
+  `AddressLine1` varchar(128) NOT NULL,
+  `AddressLine2` varchar(128) NOT NULL,
+  `PaymentName` varchar(64) NOT NULL,
+  `OrderStatus` varchar(10) NOT NULL,
+  `OrderDate` date NOT NULL,
+  PRIMARY KEY (`OrderId`),
+  KEY `FK_Address` (`UserEmailAddress`,`AddressLine1`,`AddressLine2`),
+  KEY `FK_Payment` (`UserEmailAddress`,`PaymentName`),
+  CONSTRAINT `FK_Address` FOREIGN KEY (`UserEmailAddress`, `AddressLine1`, `AddressLine2`) REFERENCES `ADDRESS` (`UserEmailAddress`, `Line1`, `Line2`),
+  CONSTRAINT `FK_Payment` FOREIGN KEY (`UserEmailAddress`, `PaymentName`) REFERENCES `PAYMENT_METHOD` (`UserEmailAddress`, `Name`),
+  CONSTRAINT `FK_User` FOREIGN KEY (`UserEmailAddress`) REFERENCES `USER` (`EmailAddress`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ORDERS`
+--
+
+LOCK TABLES `ORDERS` WRITE;
+/*!40000 ALTER TABLE `ORDERS` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ORDERS` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -173,6 +232,62 @@ LOCK TABLES `PRODUCT` WRITE;
 /*!40000 ALTER TABLE `PRODUCT` DISABLE KEYS */;
 INSERT INTO `PRODUCT` VALUES (1,'Kurkure',10,10),(2,'Lays',20,30);
 /*!40000 ALTER TABLE `PRODUCT` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `REVIEW`
+--
+
+DROP TABLE IF EXISTS `REVIEW`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `REVIEW` (
+  `ReviewId` int(11) NOT NULL AUTO_INCREMENT,
+  `Review` varchar(512) DEFAULT NULL,
+  `Rating` int(11) NOT NULL,
+  PRIMARY KEY (`ReviewId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `REVIEW`
+--
+
+LOCK TABLES `REVIEW` WRITE;
+/*!40000 ALTER TABLE `REVIEW` DISABLE KEYS */;
+/*!40000 ALTER TABLE `REVIEW` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `REVIEWSREL`
+--
+
+DROP TABLE IF EXISTS `REVIEWSREL`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `REVIEWSREL` (
+  `UserEmailAddress` varchar(128) NOT NULL,
+  `ProductId` int(11) NOT NULL,
+  `OrderId` int(11) NOT NULL,
+  `ReviewId` int(11) NOT NULL,
+  KEY `fk_userrev` (`UserEmailAddress`),
+  KEY `fk_productrev` (`ProductId`),
+  KEY `fk_orderrev` (`OrderId`),
+  KEY `fk_reviewrev` (`ReviewId`),
+  CONSTRAINT `fk_orderrev` FOREIGN KEY (`OrderId`) REFERENCES `ORDERS` (`OrderId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_productrev` FOREIGN KEY (`ProductId`) REFERENCES `PRODUCT` (`ProductId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_reviewrev` FOREIGN KEY (`ReviewId`) REFERENCES `REVIEW` (`ReviewId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_userrev` FOREIGN KEY (`UserEmailAddress`) REFERENCES `USER` (`EmailAddress`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `REVIEWSREL`
+--
+
+LOCK TABLES `REVIEWSREL` WRITE;
+/*!40000 ALTER TABLE `REVIEWSREL` DISABLE KEYS */;
+/*!40000 ALTER TABLE `REVIEWSREL` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -241,4 +356,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-10-19  9:07:20
+-- Dump completed on 2021-10-19 11:44:37
