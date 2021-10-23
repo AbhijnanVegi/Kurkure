@@ -29,3 +29,4 @@ To create a new dump file run
 ```
 docker exec mysql sh -c 'exec mysqldump -uroot -p"$MYSQL_ROOT_PASSWORD" db' > dump.sql
 ```
+

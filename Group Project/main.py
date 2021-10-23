@@ -2,7 +2,7 @@ import subprocess as sp
 from utils.cursor import con
 from utils.insert import insert_user,insert_product,insert_address,insert_payment, insert_review
 from utils.select import select_user,select_product
-
+from utils.update import update_productdetails, update_address
 OPTIONS = """
 Choose the option corresponding to the action you want to perform:
 0. Exit [EXIT]
@@ -11,6 +11,8 @@ Choose the option corresponding to the action you want to perform:
 3. Add a new address [INSERT]
 4. Add a new payment method [INSERT]
 5. Add a review to a product [INSERT]
+6. Update Product details [UPDATE]
+7. Update Address details [UPDATE]
 13. Display all products [SELECT]
 14. Display user details [SELECT]
 Option: """
@@ -24,6 +26,8 @@ def dispatch(opt):
         3: insert_address,
         4: insert_payment,
         5: insert_review,
+        6: update_productdetails,
+        7: update_address,
         13 : select_product,
         14: select_user
 
