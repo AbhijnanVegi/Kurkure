@@ -3,6 +3,8 @@ from utils.cursor import con
 from utils.insert import insert_user,insert_product,insert_address,insert_payment, insert_review
 from utils.select import select_user,select_product
 from utils.update import update_productdetails, update_address
+from utils.project import above_amount, above_rating
+
 OPTIONS = """
 Choose the option corresponding to the action you want to perform:
 0. Exit [EXIT]
@@ -13,8 +15,11 @@ Choose the option corresponding to the action you want to perform:
 5. Add a review to a product [INSERT]
 6. Update Product details [UPDATE]
 7. Update Address details [UPDATE]
+
 13. Display all products [SELECT]
 14. Display user details [SELECT]
+15. List of all orders above the value of certain amount [PROJECT]
+16. List of all reviews for a particular product rated above a certain rating [PROJECT]
 Option: """
 
 
@@ -28,9 +33,10 @@ def dispatch(opt):
         5: insert_review,
         6: update_productdetails,
         7: update_address,
-        13 : select_product,
-        14: select_user
-
+        13: select_product,
+        14: select_user,
+        15: above_amount,
+        16: above_rating
     }
     try:
         functions[opt]()
