@@ -31,7 +31,7 @@ def above_rating():
         rating = input(f"Rating : ")
 
         query ="""
-        SELECT COUNT(*) FROM (SELECT * FROM REVIEWSREL NATURAL JOIN REVIEW) AS B WHERE Rating > %s"
+        SELECT COUNT(*) FROM (SELECT * FROM REVIEWSREL NATURAL JOIN REVIEW) AS B WHERE Rating > %s
         """ % (int(rating))
         
         cur.execute(query)

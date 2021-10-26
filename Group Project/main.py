@@ -3,7 +3,8 @@ from utils.cursor import con
 from utils.insert import insert_user,insert_product,insert_address,insert_payment, insert_review
 from utils.select import select_user,select_product
 from utils.delete import delete_product,delete_address,delete_review
-from utils.update import update_productdetails, update_address
+from utils.update import update_productdetails, update_address, update_review, update_payment
+from utils.search import search_product, search_order
 from utils.project import above_amount, above_rating
 from utils.aggregate import max_rating, max_sales
 
@@ -17,7 +18,8 @@ Choose the option corresponding to the action you want to perform:
 5. Add a review to a product [INSERT]
 6. Update Product details [UPDATE]
 7. Update Address details [UPDATE]
-
+8. Update Payment details [UPDATE]
+9. Update Review details [UPDATE]
 10. Delete a product [DELETE]
 11  Delete an address [DELETE]
 12  Delete a review [DELETE]
@@ -27,6 +29,7 @@ Choose the option corresponding to the action you want to perform:
 16. List of all reviews for a particular product rated above a certain rating [PROJECT]
 17. Product with maximum sales [AGGREGATE]
 18. Product with highest reviews in a category [AGGREGATE]
+19. Search a product based on name [SEARCH]
 Option: """
 
 
@@ -40,6 +43,8 @@ def dispatch(opt):
         5: insert_review,
         6: update_productdetails,
         7: update_address,
+        8: update_payment, 
+        9: update_review,
         10: delete_product,
         11: delete_address,
         12: delete_review,
@@ -48,7 +53,8 @@ def dispatch(opt):
         15: above_amount,
         16: above_rating, 
         17: max_sales,
-        18: max_rating
+        18: max_rating,
+        19: search_product
     }
     try:
         functions[opt]()

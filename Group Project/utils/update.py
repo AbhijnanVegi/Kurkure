@@ -7,7 +7,7 @@ from utils.utils import get_input
 
 def update_productdetails():
 
-    print("Hello There")
+    #print("Hello There")
     try:
         
 
@@ -134,3 +134,74 @@ def update_address():
         print("Operation failed")
         print(">>>>>>>", e)
         con.rollback()
+
+
+def update_review():
+    try:
+        details = get_input(request=[
+                "User Email Address",
+                "Product ID",
+                "Order ID",
+            ])
+
+        contains_query = """SELECT * FROM REVIEWSREL WHERE UserEmailAddress="%s" AND ProductId = %s AND OrderId = %s  
+        """ % (details["User Email Address"], int(details["Product ID"]), int(details["Order ID"]))
+        cur.execute(contains_query)
+        contains_details = cur.fetchone()
+
+        review_id = contains_details["ReviewId"]
+
+        print(review_id)
+        review = get_input(request=[
+            "Review",
+            "Rating"
+        ])
+        query = """
+        UPDATE REVIEW
+            SET Review = "%s", Rating = %s
+            WHERE ReviewId = %s
+        """ % (review["Review"], int(review["Rating"]), review_id)
+        cur.execute(query)
+        con.commit()
+        #print(query)
+        
+
+    except Exception as e:
+        print(cur._last_executed)
+        print("Operation failed")
+        print(">>>>>>>", e)
+        con.rollback()
+    
+
+def update_payment():
+    try:
+        details = get_input(request=[
+            "User Email Address",
+            "Name of payment method",
+        ])
+
+
+        new = get_input(request=[
+            "New name of payment method",
+            "Set as default [y/N]"
+        ])
+
+        query = """
+        UPDATE PAYMENT_METHOD SET Name = "%s", IsDefault = %s WHERE UserEmailAddress = "%s" AND Name="%s" 
+        """ % (new["New name of payment method"], 1 if new["Set as default [y/N]"]=="y" else 0, details["User Email Address"], details["Name of payment method"])
+        cur.execute(query)
+        con.commit()
+        #print(query)
+        
+
+    except Exception as e:
+        print(cur._last_executed)
+        print("Operation failed")
+        print(">>>>>>>", e)
+        con.rollback()
+
+   
+
+
+    
+   
