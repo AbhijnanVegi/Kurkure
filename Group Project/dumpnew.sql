@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.35, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.36, for Linux (x86_64)
 --
 -- Host: localhost    Database: db
 -- ------------------------------------------------------
--- Server version	5.7.35
+-- Server version	5.7.36
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -30,7 +30,7 @@ CREATE TABLE `ADDRESS` (
   `State` varchar(64) NOT NULL,
   `Zipcode` varchar(6) NOT NULL,
   PRIMARY KEY (`UserEmailAddress`,`Line1`,`Line2`),
-  CONSTRAINT `ADDRESS_ibfk_1` FOREIGN KEY (`UserEmailAddress`) REFERENCES `USER` (`EmailAddress`) ON DELETE CASCADE ON UPDATE CASCADE 
+  CONSTRAINT `ADDRESS_ibfk_1` FOREIGN KEY (`UserEmailAddress`) REFERENCES `USER` (`EmailAddress`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -263,39 +263,6 @@ INSERT INTO `REVIEW` VALUES (2,'Very nice snack',5);
 UNLOCK TABLES;
 
 --
--- Table structure for table `REVIEWSREL`
---
-
-DROP TABLE IF EXISTS `REVIEWSREL`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `REVIEWSREL` (
-  `UserEmailAddress` varchar(128) NOT NULL,
-  `ProductId` int(11) NOT NULL,
-  `OrderId` int(11) NOT NULL,
-  `ReviewId` int(11) NOT NULL,
-  KEY `fk_userrev` (`UserEmailAddress`),
-  KEY `fk_productrev` (`ProductId`),
-  KEY `fk_orderrev` (`OrderId`),
-  KEY `fk_reviewrev` (`ReviewId`),
-  CONSTRAINT `fk_orderrev` FOREIGN KEY (`OrderId`) REFERENCES `ORDERS` (`OrderId`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  CONSTRAINT `fk_productrev` FOREIGN KEY (`ProductId`) REFERENCES `PRODUCT` (`ProductId`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  CONSTRAINT `fk_reviewrev` FOREIGN KEY (`ReviewId`) REFERENCES `REVIEW` (`ReviewId`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  CONSTRAINT `fk_userrev` FOREIGN KEY (`UserEmailAddress`) REFERENCES `USER` (`EmailAddress`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `REVIEWSREL`
---
-
-LOCK TABLES `REVIEWSREL` WRITE;
-/*!40000 ALTER TABLE `REVIEWSREL` DISABLE KEYS */;
-INSERT INTO `REVIEWSREL` VALUES ('Kurkure@iiit.ac.in',1,1,2);
-/*!40000 ALTER TABLE `REVIEWSREL` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `USER`
 --
 
@@ -352,6 +319,7 @@ INSERT INTO `WALLET` VALUES ('JohnDoe@jd.com','JDPay','Paytm','NkAxpzaQZaHjEuEA3
 /*!40000 ALTER TABLE `WALLET` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
@@ -360,4 +328,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-10-19 12:26:01
+-- Dump completed on 2021-10-26 14:52:34
