@@ -2,8 +2,10 @@ import subprocess as sp
 from utils.cursor import con
 from utils.insert import insert_user,insert_product,insert_address,insert_payment, insert_review
 from utils.select import select_user,select_product
+from utils.delete import delete_product,delete_address,delete_review
 from utils.update import update_productdetails, update_address
 from utils.project import above_amount, above_rating
+from utils.aggregate import max_rating, max_sales
 
 OPTIONS = """
 Choose the option corresponding to the action you want to perform:
@@ -16,10 +18,15 @@ Choose the option corresponding to the action you want to perform:
 6. Update Product details [UPDATE]
 7. Update Address details [UPDATE]
 
+10. Delete a product [DELETE]
+11  Delete an address [DELETE]
+12  Delete a review [DELETE]
 13. Display all products [SELECT]
 14. Display user details [SELECT]
 15. List of all orders above the value of certain amount [PROJECT]
 16. List of all reviews for a particular product rated above a certain rating [PROJECT]
+17. Product with maximum sales [AGGREGATE]
+18. Product with highest reviews in a category [AGGREGATE]
 Option: """
 
 
@@ -33,10 +40,15 @@ def dispatch(opt):
         5: insert_review,
         6: update_productdetails,
         7: update_address,
+        10: delete_product,
+        11: delete_address,
+        12: delete_review,
         13: select_product,
         14: select_user,
         15: above_amount,
-        16: above_rating
+        16: above_rating, 
+        17: max_sales,
+        18: max_rating
     }
     try:
         functions[opt]()
