@@ -86,7 +86,19 @@ def delete_review():
         details["UserEmailAddress"] = input(f"EMAIL ADDRESS: ")
         details["ProductID"] = input(f"Product ID: ")
         details["OrderId"] = input(f"Order ID: ")
-        print(details)
+
+        query="""
+        SELECT * from REVIEWSREL WHERE UserEmailAddress = "%s" AND ProductID = %s AND OrderID = %s
+        """ % (details["UserEmailAddress"], int(details["ProductID"]), int(details["OrderId"]))
+        cur.execute(query)
+        review = cur.fetchone()
+        if not review:
+            raise("No review exists")
+        
+        query="""
+        DELETE FROM REVIEW WHERE ReviewId = %s
+        """ % int(review["ReviewId"])
+        cur.execute(query)
 
         query ="""
         DELETE from REVIEWSREL WHERE UserEmailAddress = "%s" AND ProductID = %s AND OrderId = %s
