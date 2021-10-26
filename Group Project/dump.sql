@@ -30,7 +30,7 @@ CREATE TABLE `ADDRESS` (
   `State` varchar(64) NOT NULL,
   `Zipcode` varchar(6) NOT NULL,
   PRIMARY KEY (`UserEmailAddress`,`Line1`,`Line2`),
-  CONSTRAINT `ADDRESS_ibfk_1` FOREIGN KEY (`UserEmailAddress`) REFERENCES `USER` (`EmailAddress`)
+  CONSTRAINT `ADDRESS_ibfk_1` FOREIGN KEY (`UserEmailAddress`) REFERENCES `USER` (`EmailAddress`) ON DELETE CASCADE ON UPDATE CASCADE 
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -59,7 +59,7 @@ CREATE TABLE `CARD` (
   `NameOfCardHolder` varchar(64) NOT NULL,
   `BillingAddress` varchar(512) NOT NULL,
   PRIMARY KEY (`UserEmailAddress`,`Name`),
-  CONSTRAINT `CARD_ibfk_1` FOREIGN KEY (`UserEmailAddress`, `Name`) REFERENCES `PAYMENT_METHOD` (`UserEmailAddress`, `Name`)
+  CONSTRAINT `CARD_ibfk_1` FOREIGN KEY (`UserEmailAddress`, `Name`) REFERENCES `PAYMENT_METHOD` (`UserEmailAddress`, `Name`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -84,7 +84,7 @@ CREATE TABLE `CATEGORY` (
   `ProductID` int(11) NOT NULL,
   `Category` varchar(64) NOT NULL,
   KEY `ProductID` (`ProductID`),
-  CONSTRAINT `CATEGORY_ibfk_1` FOREIGN KEY (`ProductID`) REFERENCES `PRODUCT` (`ProductId`)
+  CONSTRAINT `CATEGORY_ibfk_1` FOREIGN KEY (`ProductID`) REFERENCES `PRODUCT` (`ProductId`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -112,7 +112,7 @@ CREATE TABLE `CONTAINS` (
   KEY `FK_Order` (`OrderId`),
   KEY `FK_Product` (`ProductId`),
   CONSTRAINT `FK_Order` FOREIGN KEY (`OrderId`) REFERENCES `ORDERS` (`OrderId`),
-  CONSTRAINT `FK_Product` FOREIGN KEY (`ProductId`) REFERENCES `PRODUCT` (`ProductId`)
+  CONSTRAINT `FK_Product` FOREIGN KEY (`ProductId`) REFERENCES `PRODUCT` (`ProductId`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -137,7 +137,7 @@ CREATE TABLE `DELIVERY_AVAILABILITY` (
   `ProductID` int(11) NOT NULL,
   `Location` varchar(64) NOT NULL,
   KEY `ProductID` (`ProductID`),
-  CONSTRAINT `DELIVERY_AVAILABILITY_ibfk_1` FOREIGN KEY (`ProductID`) REFERENCES `PRODUCT` (`ProductId`)
+  CONSTRAINT `DELIVERY_AVAILABILITY_ibfk_1` FOREIGN KEY (`ProductID`) REFERENCES `PRODUCT` (`ProductId`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -169,9 +169,9 @@ CREATE TABLE `ORDERS` (
   PRIMARY KEY (`OrderId`),
   KEY `FK_Address` (`UserEmailAddress`,`AddressLine1`,`AddressLine2`),
   KEY `FK_Payment` (`UserEmailAddress`,`PaymentName`),
-  CONSTRAINT `FK_Address` FOREIGN KEY (`UserEmailAddress`, `AddressLine1`, `AddressLine2`) REFERENCES `ADDRESS` (`UserEmailAddress`, `Line1`, `Line2`),
-  CONSTRAINT `FK_Payment` FOREIGN KEY (`UserEmailAddress`, `PaymentName`) REFERENCES `PAYMENT_METHOD` (`UserEmailAddress`, `Name`),
-  CONSTRAINT `FK_User` FOREIGN KEY (`UserEmailAddress`) REFERENCES `USER` (`EmailAddress`)
+  CONSTRAINT `FK_Address` FOREIGN KEY (`UserEmailAddress`, `AddressLine1`, `AddressLine2`) REFERENCES `ADDRESS` (`UserEmailAddress`, `Line1`, `Line2`) ON DELETE CASCADE,
+  CONSTRAINT `FK_Payment` FOREIGN KEY (`UserEmailAddress`, `PaymentName`) REFERENCES `PAYMENT_METHOD` (`UserEmailAddress`, `Name`) ON DELETE CASCADE,
+  CONSTRAINT `FK_User` FOREIGN KEY (`UserEmailAddress`) REFERENCES `USER` (`EmailAddress`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -197,7 +197,7 @@ CREATE TABLE `PAYMENT_METHOD` (
   `Name` varchar(64) NOT NULL,
   `IsDefault` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`UserEmailAddress`,`Name`),
-  CONSTRAINT `PAYMENT_METHOD_ibfk_1` FOREIGN KEY (`UserEmailAddress`) REFERENCES `USER` (`EmailAddress`)
+  CONSTRAINT `PAYMENT_METHOD_ibfk_1` FOREIGN KEY (`UserEmailAddress`) REFERENCES `USER` (`EmailAddress`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -338,7 +338,7 @@ CREATE TABLE `WALLET` (
   `AuthToken` varchar(128) NOT NULL,
   `Balance` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`UserEmailAddress`,`Name`),
-  CONSTRAINT `WALLET_ibfk_1` FOREIGN KEY (`UserEmailAddress`, `Name`) REFERENCES `PAYMENT_METHOD` (`UserEmailAddress`, `Name`)
+  CONSTRAINT `WALLET_ibfk_1` FOREIGN KEY (`UserEmailAddress`, `Name`) REFERENCES `PAYMENT_METHOD` (`UserEmailAddress`, `Name`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -352,7 +352,6 @@ INSERT INTO `WALLET` VALUES ('JohnDoe@jd.com','JDPay','Paytm','NkAxpzaQZaHjEuEA3
 /*!40000 ALTER TABLE `WALLET` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;

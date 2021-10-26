@@ -4,7 +4,8 @@ from utils.insert import insert_user,insert_product,insert_address,insert_paymen
 from utils.select import select_user,select_product
 from utils.delete import delete_product,delete_address,delete_review
 from utils.update import update_productdetails, update_address, update_review, update_payment
-from utils.search import search_product, search_order
+from utils.search import search_product
+from utils.analysis import below_avg
 from utils.project import above_amount, above_rating
 from utils.aggregate import max_rating, max_sales
 
@@ -30,6 +31,7 @@ Choose the option corresponding to the action you want to perform:
 17. Product with maximum sales [AGGREGATE]
 18. Product with highest reviews in a category [AGGREGATE]
 19. Search a product based on name [SEARCH]
+20. List of products less than average rating for that category
 Option: """
 
 
@@ -54,7 +56,8 @@ def dispatch(opt):
         16: above_rating, 
         17: max_sales,
         18: max_rating,
-        19: search_product
+        19: search_product,
+        20: below_avg
     }
     try:
         functions[opt]()
