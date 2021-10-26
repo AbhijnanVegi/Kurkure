@@ -169,7 +169,7 @@ CREATE TABLE `ORDERS` (
   PRIMARY KEY (`OrderId`),
   KEY `FK_Address` (`UserEmailAddress`,`AddressLine1`,`AddressLine2`),
   KEY `FK_Payment` (`UserEmailAddress`,`PaymentName`),
-  CONSTRAINT `FK_Address` FOREIGN KEY (`UserEmailAddress`, `AddressLine1`, `AddressLine2`) REFERENCES `ADDRESS` (`UserEmailAddress`, `Line1`, `Line2`) ON DELETE CASCADE,
+  CONSTRAINT `FK_Address` FOREIGN KEY (`UserEmailAddress`, `AddressLine1`, `AddressLine2`) REFERENCES `ADDRESS` (`UserEmailAddress`, `Line1`, `Line2`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_Payment` FOREIGN KEY (`UserEmailAddress`, `PaymentName`) REFERENCES `PAYMENT_METHOD` (`UserEmailAddress`, `Name`) ON DELETE CASCADE,
   CONSTRAINT `FK_User` FOREIGN KEY (`UserEmailAddress`) REFERENCES `USER` (`EmailAddress`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;

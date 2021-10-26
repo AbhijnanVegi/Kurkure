@@ -51,44 +51,24 @@ def update_productdetails():
         print(">>>>>>>", e)
         con.rollback()
 
-def update_address1():
-    try:
-
-        details = {}
-        details["User Email Address"] = input(f"User Email Address: ")
-        details["Address Line 1"] = input(f"Address Line 1: ")
-        details["Address Line 2"] = input(f"Address Line 2: ")
-        details["City"] = input(f"City: ")
-        details["State"] = input(f"State: ")
-        details["Zipcode"] = input(f"Zipcode: ")
-
-        #print(details)
-        
-        query ="""
-        UPDATE ADDRESS 
-            SET Line1 = coalesce("%s",Line1), Line2 = coalesce("%s",Line2), City = coalesce("%s",City), State = coalesce("%s",State), Zipcode = coalesce(%s,Zipcode)
-            WHERE UserEmailAddress = "%s"
-        """ % (details["Address Line 1"], details["Address Line 2"], details["City"], details["State"], int(details["Zipcode"]), details["User Email Address"])
-        cur.execute(query)
-        con.commit()
-        print("Address Details Updated\n\n")
-        
-    except Exception as e:
-        print("Operation failed")
-        print(">>>>>>>", e)
-        con.rollback()
 
 def update_address():
     try:
 
         details = {}
-        details["User Email Address"] = input(f"User Email Address: ")
-
-        contains_query = """SELECT * FROM ADDRESS WHERE UserEmailAddress="%s" """ % (details["User Email Address"])
-        cur.execute(contains_query)
-        contains_details = cur.fetchone()
+        details["Email Address"] = input(f"Email Address: ")
         
-        # print(contains_details)
+        query ="""
+        SELECT * from ADDRESS WHERE UserEmailAddress = "%s"
+        """ % details["Email Address"]
+
+        cur.execute(query)
+        addresses = cur.fetchall()
+        for i,address in enumerate(addresses):
+            print(f"{i}. {address['Line1']}, {address['Line2']}")
+
+        i = int(input("Select the address to update: "))
+
 
         details["Address Line 1"] = input(f"Address Line 1: ")
         details["Address Line 2"] = input(f"Address Line 2: ")
@@ -99,33 +79,28 @@ def update_address():
         
         
         if(details["Address Line 1"]==''):
-            details["Address Line 1"] = contains_details["Line1"]
+            details["Address Line 1"] = addresses[i]["Line1"]
         
         if(details["Address Line 2"]==''):
-            details["Address Line 2"] = contains_details["Line2"]
+            details["Address Line 2"] = addresses[i]["Line2"]
         
         if(details["City"]==''):
-            details["City"] = contains_details["City"]
+            details["City"] = addresses[i]["City"]
         
         if(details["State"]==''):
-            details["State"] = contains_details["State"]
+            details["State"] = addresses[i]["State"]
         
         if(details["Zipcode"]==''):
-            details["Zipcode"] = contains_details["Zipcode"]
+            details["Zipcode"] = addresses[i]["Zipcode"]
         
         
         query ="""
         UPDATE ADDRESS 
             SET Line1 = "%s" , Line2 = "%s", City = "%s", State = "%s", Zipcode = %s
-            WHERE UserEmailAddress = "%s"
-        """ % (details["Address Line 1"], details["Address Line 2"], details["City"], details["State"], int(details["Zipcode"]), details["User Email Address"])
+            WHERE UserEmailAddress = "%s" AND Line1 = "%s" AND Line2 = "%s"
+        """ % (details["Address Line 1"], details["Address Line 2"], details["City"], details["State"], int(details["Zipcode"]), details["Email Address"], addresses[i]["Line1"], addresses[i]["Line2"])
         cur.execute(query)
         con.commit()
-        
-        # contains_query = """SELECT * FROM ADDRESS WHERE UserEmailAddress="%s" """ % (details["User Email Address"])
-        # cur.execute(contains_query)
-        # contains_details = cur.fetchone()
-        # print(contains_details)
 
         print("Address Details Updated\n\n")
         
